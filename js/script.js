@@ -133,6 +133,26 @@
       .trim();
   }
 
+  function isHiddenColumn(columnName) {
+    const normalized = normalizeForMatch(columnName);
+    if (!normalized) return false;
+    if (/^coluna(s)?(\s+\d+)?(\s*\(|$)/.test(normalized)) return true;
+    if (normalized === "empresa" || normalized.includes("empresa")) return true;
+    if (/\bcpf\b/.test(normalized)) return true;
+    if (/\bchave\b/.test(normalized)) return true;
+    if (/\bid\s*petrobras\b/.test(normalized)) return true;
+    return false;
+  }
+
+  function getVisibleColumnIndices(columns) {
+    const indices = [];
+    for (let colIndex = 0; colIndex < columns.length; colIndex += 1) {
+      if (isHiddenColumn(columns[colIndex])) continue;
+      indices.push(colIndex);
+    }
+    return indices;
+  }
+
   function isEmptyCell(value) {
     return value == null || (typeof value === "string" && value.trim() === "");
   }
@@ -459,8 +479,15 @@
       return;
     }
 
+    const visibleColumnIndices = getVisibleColumnIndices(columns);
+    if (visibleColumnIndices.length === 0) {
+      clearTable();
+      return;
+    }
+
     const headRow = document.createElement("tr");
-    columns.forEach((name, colIndex) => {
+    visibleColumnIndices.forEach((colIndex) => {
+      const name = columns[colIndex];
       const th = document.createElement("th");
       th.textContent = name;
       if (meta.numericColumns.includes(colIndex)) th.classList.add("is-numeric");
@@ -476,7 +503,7 @@
 
     for (const row of rowsToRender) {
       const tr = document.createElement("tr");
-      columns.forEach((_, colIndex) => {
+      visibleColumnIndices.forEach((colIndex) => {
         const td = document.createElement("td");
         const value = row[colIndex];
 
