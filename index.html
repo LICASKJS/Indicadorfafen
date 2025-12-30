@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INDICADOR FAFEN</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" href="img/ico.png" type="image/png" />
+    <link rel="shortcut icon" href="img/ico.png" type="image/png" />
+    <link rel="apple-touch-icon" href="img/ico.png" />
+  </head>
+
+  <body class="dark-mode" data-page="indicador-fafen">
+    <div class="background-elements" aria-hidden="true">
+      <div class="bg-element bg-element-1"></div>
+      <div class="bg-element bg-element-2"></div>
+      <div class="bg-element bg-element-3"></div>
+    </div>
+
+    <div class="screen-transition" aria-hidden="true">
+      <div class="screen-transition-card">
+        <img src="img/ico.png" alt="" width="76" height="76" decoding="async" />
+      </div>
+    </div>
+
+    <header class="header">
+      <div class="header-container">
+        <div class="logo-container">
+          <img src="img/logo-branca.png" alt="Logo Engeman" class="logo" />
+        </div>
+        <nav class="nav-menu" role="navigation" aria-label="Menu principal" data-nav-primary></nav>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="page-layout">
+        <aside class="side-nav is-hidden" aria-label="Navegação secundária" data-side-nav></aside>
+        <div class="page-body">
+          <section class="hero-section">
+            <div class="hero-container">
+              <div class="hero-badge">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M3 12h6m6 0h6" />
+                  <path d="M12 3v18" />
+                </svg>
+                <span>Indicadores SGI</span>
+              </div>
+              <h1 class="hero-title">
+                <span class="gradient-text">INDICADOR FAFEN</span>
+              </h1>
+              <p class="hero-description" id="pageDescription">
+                Painel de indicadores SGI — carregue a planilha, aplique filtros e acompanhe o resumo por status.
+              </p>
+            </div>
+          </section>
+
+          <section class="dashboard-section">
+            <div class="section-container">
+              <div class="table-card" data-table-section>
+                <div class="table-header">
+                  <div class="table-header-content">
+                    <h3 data-table-title>Treinamentos</h3>
+                    <span class="table-note" id="workbookMeta"></span>
+                  </div>
+                  <div class="table-header-actions">
+                    <input type="file" id="workbookUpload" class="sr-only" accept=".xlsx,.xls" aria-label="Selecionar nova planilha" />
+                    <label for="workbookUpload" class="upload-trigger" data-upload-trigger title="Atualizar planilha">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      <span class="sr-only">Atualizar planilha</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="date-filter-bar" id="filterBar">
+                  <div class="date-filter-group">
+                    <label for="workbookSelect">Planilha</label>
+                    <select id="workbookSelect"></select>
+                  </div>
+                  <div class="date-filter-group">
+                    <label for="sheetSelect">Aba</label>
+                    <select id="sheetSelect"></select>
+                  </div>
+                  <div class="date-filter-group">
+                    <label for="searchInput">Buscar</label>
+                    <input id="searchInput" type="text" inputmode="search" placeholder="Nome, CPF, função..." />
+                  </div>
+                  <div class="date-filter-group">
+                    <label for="filterStartDate">Data (de)</label>
+                    <input id="filterStartDate" type="date" />
+                  </div>
+                  <div class="date-filter-group">
+                    <label for="filterEndDate">Data (até)</label>
+                    <input id="filterEndDate" type="date" />
+                  </div>
+                  <div class="date-filter-group">
+                    <label for="filterMonth">Mês</label>
+                    <select id="filterMonth"></select>
+                  </div>
+                  <div class="date-filter-group">
+                    <label for="filterYear">Ano</label>
+                    <select id="filterYear"></select>
+                  </div>
+                  <button type="button" class="btn-secondary" id="clearFilters">Limpar filtros</button>
+                  <div class="inline-alert" id="loadAlert" role="status" aria-live="polite"></div>
+                </div>
+
+                <div class="table-container">
+                  <table id="dataTable">
+                    <thead></thead>
+                    <tbody></tbody>
+                  </table>
+                  <div class="table-footnote" id="tableFootnote"></div>
+                </div>
+              </div>
+
+              <div class="chart-card chart-wide" id="chartCard" data-chart-section>
+                <div class="chart-header">
+                  <h3>Resumo gráfico</h3>
+                  <div class="chart-metrics" id="chartMetrics" aria-label="Resumo de validades"></div>
+                </div>
+                <div class="chart-wrapper">
+                  <canvas id="dataChart" aria-label="Gráfico dinâmico"></canvas>
+                  <p class="chart-empty" id="chartEmpty">Sem validades para exibir.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="js/script.js"></script>
+  </body>
+</html>
